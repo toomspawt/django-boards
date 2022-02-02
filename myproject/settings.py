@@ -22,13 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-eg6^mh_3z3jd+oyxpf&esm0c)30so7-jyuiof#=77yxm49b)oc'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Application definition
@@ -145,9 +141,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_URL = 'login'
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
